@@ -23,6 +23,7 @@
   (println "Initializing all pins")
   (init-pins!)
   (println "Starting clock")
-  (js/setInterval #((update-time!)) 1000))
+  (js/setInterval (fn [] (update-time!))
+                  1000))
 
 (set! *main-cli-fn* -main)
