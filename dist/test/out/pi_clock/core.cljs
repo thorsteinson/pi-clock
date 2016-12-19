@@ -8,5 +8,5 @@
 (def rpio (js/require "rpio"))
 (defn -main [& args]
   (doseq [p HOURS-REGISTER]
-    (open-pin! p)))
+    (hardware/open-pin! p)))
 (set! *main-cli-fn* -main)

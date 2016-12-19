@@ -6,7 +6,7 @@ pi_clock.hardware.HIGH = pi_clock.hardware.rpio.HIGH;
 pi_clock.hardware.LOW = pi_clock.hardware.rpio.LOW;
 pi_clock.hardware.OUTPUT = pi_clock.hardware.rpio.OUTPUT;
 pi_clock.hardware.open_pin_BANG_ = (function pi_clock$hardware$open_pin_BANG_(p){
-return pi_clock.hardware.rpio.open(p,pi_clock.hardware.OUTPUT,pi_clock.hardware.HIGh);
+return pi_clock.hardware.rpio.open(p,pi_clock.hardware.OUTPUT,pi_clock.hardware.HIGH);
 });
 pi_clock.hardware.set_low_BANG_ = (function pi_clock$hardware$set_low_BANG_(p){
 return pi_clock.hardware.rpio.write(p,pi_clock.hardware.LOW);
