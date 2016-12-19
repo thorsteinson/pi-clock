@@ -29,12 +29,8 @@ return pi_clock.core._main.cljs$core$IFn$_invoke$arity$variadic(argseq__8309__au
 pi_clock.core._main.cljs$core$IFn$_invoke$arity$variadic = (function (args){
 cljs.core.map.call(null,pi_clock.hardware.open_pin_BANG_,pi_clock.core.HOURS_REGISTER);
 
-cljs.core.map.call(null,pi_clock.hardware.set_high_BANG_,pi_clock.core.HOURS_REGISTER);
-
-pi_clock.core.rpio.open((11),pi_clock.core.rpio.OUTPUT,pi_clock.core.rpio.HIGH);
-
-return setTimeout((function (){
-return cljs.core.println.call(null,"plz change");
+return setInterval((function (){
+return cljs.core.map.call(null,pi_clock.hardware.set_high_BANG_,pi_clock.core.HOURS_REGISTER);
 }),(1000));
 });
 
