@@ -1,0 +1,1 @@
+{"version":3,"file":"\/C:\/Users\/caleb\/src\/pi-clock\/dist\/out\/pi_clock\/clock.js","sources":["clock.cljs"],"lineCount":9,"mappings":";AAAA;;AAEA,gCAAA,hCAAMA;AAAN,AACE,IAAMC,OAAK,KAAAC;AAAX,AAAA,kDAAA,qEAAA,6EAAA,7FACU,AAAWD,2EACT,AAAaA,6EACb,AAAaA","names":["pi-clock.clock\/get-time!","time","js\/Date"]}

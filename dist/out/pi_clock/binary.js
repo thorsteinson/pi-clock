@@ -15,5 +15,8 @@ var pad_size = (size - list_len);
 var zeros = cljs.core.take.call(null,pad_size,cljs.core.repeat.call(null,false));
 return cljs.core.concat.call(null,zeros,xs);
 });
+pi_clock.binary.binpad = (function pi_clock$binary$binpad(n,size){
+return pi_clock.binary.pad_zeros.call(null,pi_clock.binary.__GT_binary.call(null,n),size);
+});
 
 //# sourceMappingURL=binary.js.map

@@ -3,21 +3,158 @@ goog.provide('pi_clock.core');
 goog.require('cljs.core');
 goog.require('cljs.nodejs');
 goog.require('pi_clock.hardware');
+goog.require('pi_clock.clock');
+goog.require('pi_clock.binary');
+goog.require('pi_clock.led');
 cljs.nodejs.enable_util_print_BANG_.call(null);
 pi_clock.core.HOURS_REGISTER = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(11),(36),(33),(32),(31),(29)], null);
 pi_clock.core.MINUTES_REGISTER = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(12),(35),(38),(40),(15),(16)], null);
 pi_clock.core.SECOUNDS_REGISTER = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(18),(22),(37),(13),(5),(3)], null);
-pi_clock.core.rpio = require("rpio");
+pi_clock.core.update_led_BANG_ = (function pi_clock$core$update_led_BANG_(p__9126){
+var map__9129 = p__9126;
+var map__9129__$1 = ((((!((map__9129 == null)))?((((map__9129.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__9129.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__9129):map__9129);
+var pin = cljs.core.get.call(null,map__9129__$1,new cljs.core.Keyword(null,"pin","pin",-2111774834));
+var on_QMARK_ = cljs.core.get.call(null,map__9129__$1,new cljs.core.Keyword(null,"on","on",173873944));
+if(cljs.core.truth_(on_QMARK_)){
+return pi_clock.hardware.set_high_BANG_.call(null,pin);
+} else {
+return pi_clock.hardware.set_low_BANG_.call(null,pin);
+}
+});
+pi_clock.core.assign_leds = (function pi_clock$core$assign_leds(register,n){
+var size = cljs.core.count.call(null,register);
+var binary_n = pi_clock.binary.binpad.call(null,n,size);
+return cljs.core.map.call(null,pi_clock.core.make_led,register,binary_n);
+});
+pi_clock.core.time__GT_leds = (function pi_clock$core$time__GT_leds(p__9131){
+var map__9134 = p__9131;
+var map__9134__$1 = ((((!((map__9134 == null)))?((((map__9134.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__9134.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__9134):map__9134);
+var hh = cljs.core.get.call(null,map__9134__$1,new cljs.core.Keyword(null,"hours","hours",58380855));
+var mm = cljs.core.get.call(null,map__9134__$1,new cljs.core.Keyword(null,"minutes","minutes",1319166394));
+var ss = cljs.core.get.call(null,map__9134__$1,new cljs.core.Keyword(null,"seconds","seconds",-445266194));
+return cljs.core.concat.call(null,pi_clock.core.assign_leds.call(null,pi_clock.core.HOURS_REGISTER,hh),pi_clock.core.assign_leds.call(null,pi_clock.core.MINUTES_REGISTER,mm),pi_clock.core.assign_leds.call(null,pi_clock.core.SECONDS_REGISTER,ss));
+});
+pi_clock.core.init_pins_BANG_ = (function pi_clock$core$init_pins_BANG_(){
+var pins = cljs.core.concat.call(null,pi_clock.core.HOURS_REGISTER,pi_clock.core.MINUTES_REGISTER,pi_clock.core.SECONDS_REGISTER);
+var seq__9140 = cljs.core.seq.call(null,pins);
+var chunk__9141 = null;
+var count__9142 = (0);
+var i__9143 = (0);
+while(true){
+if((i__9143 < count__9142)){
+var p = cljs.core._nth.call(null,chunk__9141,i__9143);
+pi_clock.hardware.open_pin_BANG_.call(null,p);
+
+var G__9144 = seq__9140;
+var G__9145 = chunk__9141;
+var G__9146 = count__9142;
+var G__9147 = (i__9143 + (1));
+seq__9140 = G__9144;
+chunk__9141 = G__9145;
+count__9142 = G__9146;
+i__9143 = G__9147;
+continue;
+} else {
+var temp__6753__auto__ = cljs.core.seq.call(null,seq__9140);
+if(temp__6753__auto__){
+var seq__9140__$1 = temp__6753__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__9140__$1)){
+var c__7991__auto__ = cljs.core.chunk_first.call(null,seq__9140__$1);
+var G__9148 = cljs.core.chunk_rest.call(null,seq__9140__$1);
+var G__9149 = c__7991__auto__;
+var G__9150 = cljs.core.count.call(null,c__7991__auto__);
+var G__9151 = (0);
+seq__9140 = G__9148;
+chunk__9141 = G__9149;
+count__9142 = G__9150;
+i__9143 = G__9151;
+continue;
+} else {
+var p = cljs.core.first.call(null,seq__9140__$1);
+pi_clock.hardware.open_pin_BANG_.call(null,p);
+
+var G__9152 = cljs.core.next.call(null,seq__9140__$1);
+var G__9153 = null;
+var G__9154 = (0);
+var G__9155 = (0);
+seq__9140 = G__9152;
+chunk__9141 = G__9153;
+count__9142 = G__9154;
+i__9143 = G__9155;
+continue;
+}
+} else {
+return null;
+}
+}
+break;
+}
+});
+pi_clock.core.update_time_BANG_ = (function pi_clock$core$update_time_BANG_(){
+var seq__9160 = cljs.core.seq.call(null,pi_clock.core.time__GT_leds.call(null,pi_clock.clock.get_time_BANG_.call(null)));
+var chunk__9161 = null;
+var count__9162 = (0);
+var i__9163 = (0);
+while(true){
+if((i__9163 < count__9162)){
+var led = cljs.core._nth.call(null,chunk__9161,i__9163);
+pi_clock.core.update_led_BANG_.call(null,led);
+
+var G__9164 = seq__9160;
+var G__9165 = chunk__9161;
+var G__9166 = count__9162;
+var G__9167 = (i__9163 + (1));
+seq__9160 = G__9164;
+chunk__9161 = G__9165;
+count__9162 = G__9166;
+i__9163 = G__9167;
+continue;
+} else {
+var temp__6753__auto__ = cljs.core.seq.call(null,seq__9160);
+if(temp__6753__auto__){
+var seq__9160__$1 = temp__6753__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__9160__$1)){
+var c__7991__auto__ = cljs.core.chunk_first.call(null,seq__9160__$1);
+var G__9168 = cljs.core.chunk_rest.call(null,seq__9160__$1);
+var G__9169 = c__7991__auto__;
+var G__9170 = cljs.core.count.call(null,c__7991__auto__);
+var G__9171 = (0);
+seq__9160 = G__9168;
+chunk__9161 = G__9169;
+count__9162 = G__9170;
+i__9163 = G__9171;
+continue;
+} else {
+var led = cljs.core.first.call(null,seq__9160__$1);
+pi_clock.core.update_led_BANG_.call(null,led);
+
+var G__9172 = cljs.core.next.call(null,seq__9160__$1);
+var G__9173 = null;
+var G__9174 = (0);
+var G__9175 = (0);
+seq__9160 = G__9172;
+chunk__9161 = G__9173;
+count__9162 = G__9174;
+i__9163 = G__9175;
+continue;
+}
+} else {
+return null;
+}
+}
+break;
+}
+});
 pi_clock.core._main = (function pi_clock$core$_main(var_args){
 var args__8308__auto__ = [];
-var len__8301__auto___8441 = arguments.length;
-var i__8302__auto___8442 = (0);
+var len__8301__auto___9177 = arguments.length;
+var i__8302__auto___9178 = (0);
 while(true){
-if((i__8302__auto___8442 < len__8301__auto___8441)){
-args__8308__auto__.push((arguments[i__8302__auto___8442]));
+if((i__8302__auto___9178 < len__8301__auto___9177)){
+args__8308__auto__.push((arguments[i__8302__auto___9178]));
 
-var G__8443 = (i__8302__auto___8442 + (1));
-i__8302__auto___8442 = G__8443;
+var G__9179 = (i__8302__auto___9178 + (1));
+i__8302__auto___9178 = G__9179;
 continue;
 } else {
 }
@@ -29,130 +166,21 @@ return pi_clock.core._main.cljs$core$IFn$_invoke$arity$variadic(argseq__8309__au
 });
 
 pi_clock.core._main.cljs$core$IFn$_invoke$arity$variadic = (function (args){
-var pins = cljs.core.concat.call(null,pi_clock.core.HOURS_REGISTER,pi_clock.core.MINUTES_REGISTER,pi_clock.core.SECOUNDS_REGISTER);
-var seq__8433_8444 = cljs.core.seq.call(null,pins);
-var chunk__8434_8445 = null;
-var count__8435_8446 = (0);
-var i__8436_8447 = (0);
-while(true){
-if((i__8436_8447 < count__8435_8446)){
-var p_8448 = cljs.core._nth.call(null,chunk__8434_8445,i__8436_8447);
-pi_clock.hardware.open_pin_BANG_.call(null,p_8448);
+cljs.core.println.call(null,"Initializing all pins");
 
-pi_clock.hardware.set_high_BANG_.call(null,p_8448);
+pi_clock.core.init_pins_BANG_.call(null);
 
-var G__8449 = seq__8433_8444;
-var G__8450 = chunk__8434_8445;
-var G__8451 = count__8435_8446;
-var G__8452 = (i__8436_8447 + (1));
-seq__8433_8444 = G__8449;
-chunk__8434_8445 = G__8450;
-count__8435_8446 = G__8451;
-i__8436_8447 = G__8452;
-continue;
-} else {
-var temp__6753__auto___8453 = cljs.core.seq.call(null,seq__8433_8444);
-if(temp__6753__auto___8453){
-var seq__8433_8454__$1 = temp__6753__auto___8453;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__8433_8454__$1)){
-var c__7991__auto___8455 = cljs.core.chunk_first.call(null,seq__8433_8454__$1);
-var G__8456 = cljs.core.chunk_rest.call(null,seq__8433_8454__$1);
-var G__8457 = c__7991__auto___8455;
-var G__8458 = cljs.core.count.call(null,c__7991__auto___8455);
-var G__8459 = (0);
-seq__8433_8444 = G__8456;
-chunk__8434_8445 = G__8457;
-count__8435_8446 = G__8458;
-i__8436_8447 = G__8459;
-continue;
-} else {
-var p_8460 = cljs.core.first.call(null,seq__8433_8454__$1);
-pi_clock.hardware.open_pin_BANG_.call(null,p_8460);
+cljs.core.println.call(null,"Starting clock");
 
-pi_clock.hardware.set_high_BANG_.call(null,p_8460);
-
-var G__8461 = cljs.core.next.call(null,seq__8433_8454__$1);
-var G__8462 = null;
-var G__8463 = (0);
-var G__8464 = (0);
-seq__8433_8444 = G__8461;
-chunk__8434_8445 = G__8462;
-count__8435_8446 = G__8463;
-i__8436_8447 = G__8464;
-continue;
-}
-} else {
-}
-}
-break;
-}
-
-cljs.core.println.call(null,"All LEDs should be turned on");
-
-return setTimeout(((function (pins){
-return (function (){
-var seq__8437_8465 = cljs.core.seq.call(null,pins);
-var chunk__8438_8466 = null;
-var count__8439_8467 = (0);
-var i__8440_8468 = (0);
-while(true){
-if((i__8440_8468 < count__8439_8467)){
-var p_8469 = cljs.core._nth.call(null,chunk__8438_8466,i__8440_8468);
-pi_clock.hardware.set_low_BANG_.call(null,p_8469);
-
-var G__8470 = seq__8437_8465;
-var G__8471 = chunk__8438_8466;
-var G__8472 = count__8439_8467;
-var G__8473 = (i__8440_8468 + (1));
-seq__8437_8465 = G__8470;
-chunk__8438_8466 = G__8471;
-count__8439_8467 = G__8472;
-i__8440_8468 = G__8473;
-continue;
-} else {
-var temp__6753__auto___8474 = cljs.core.seq.call(null,seq__8437_8465);
-if(temp__6753__auto___8474){
-var seq__8437_8475__$1 = temp__6753__auto___8474;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__8437_8475__$1)){
-var c__7991__auto___8476 = cljs.core.chunk_first.call(null,seq__8437_8475__$1);
-var G__8477 = cljs.core.chunk_rest.call(null,seq__8437_8475__$1);
-var G__8478 = c__7991__auto___8476;
-var G__8479 = cljs.core.count.call(null,c__7991__auto___8476);
-var G__8480 = (0);
-seq__8437_8465 = G__8477;
-chunk__8438_8466 = G__8478;
-count__8439_8467 = G__8479;
-i__8440_8468 = G__8480;
-continue;
-} else {
-var p_8481 = cljs.core.first.call(null,seq__8437_8475__$1);
-pi_clock.hardware.set_low_BANG_.call(null,p_8481);
-
-var G__8482 = cljs.core.next.call(null,seq__8437_8475__$1);
-var G__8483 = null;
-var G__8484 = (0);
-var G__8485 = (0);
-seq__8437_8465 = G__8482;
-chunk__8438_8466 = G__8483;
-count__8439_8467 = G__8484;
-i__8440_8468 = G__8485;
-continue;
-}
-} else {
-}
-}
-break;
-}
-
-return cljs.core.println.call(null,"All LEDs should be off");
-});})(pins))
-,(1000));
+return setInterval((function (){
+return pi_clock.core.update_time_BANG_.call(null).call(null);
+}),(1000));
 });
 
 pi_clock.core._main.cljs$lang$maxFixedArity = (0);
 
-pi_clock.core._main.cljs$lang$applyTo = (function (seq8432){
-return pi_clock.core._main.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq8432));
+pi_clock.core._main.cljs$lang$applyTo = (function (seq9176){
+return pi_clock.core._main.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq9176));
 });
 
 cljs.core._STAR_main_cli_fn_STAR_ = pi_clock.core._main;

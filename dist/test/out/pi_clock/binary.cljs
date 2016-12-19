@@ -13,3 +13,8 @@
         pad-size (- size list-len)
         zeros (take pad-size (repeat false))]
     (concat zeros xs)))
+
+(defn binpad [n size]
+  (-> n
+      (->binary)
+      (pad-zeros size)))

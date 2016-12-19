@@ -17,3 +17,7 @@
   (is (= (bin/pad-zeros [true false] 2) (seq [true false])))
   (is (= (bin/pad-zeros [true false] 3) (seq [false true false])))
   (is (= (bin/pad-zeros [true false] 5) (seq [false false false true false]))))
+
+(deftest binpad
+  (is (= (bin/binpad 3 5)
+         (seq [false false false true true]))))

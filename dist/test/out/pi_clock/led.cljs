@@ -9,6 +9,6 @@
 (defn toggle [led]
   (update led :on not))
 
-(defn make-led [pin]
-  {:on false
+(defn make-led [pin on?]
+  {:on on?
    :pin pin}) 

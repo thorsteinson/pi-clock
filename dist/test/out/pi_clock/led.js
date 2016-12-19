@@ -10,8 +10,8 @@ return cljs.core.assoc.call(null,led,new cljs.core.Keyword(null,"on","on",173873
 pi_clock.led.toggle = (function pi_clock$led$toggle(led){
 return cljs.core.update.call(null,led,new cljs.core.Keyword(null,"on","on",173873944),cljs.core.not);
 });
-pi_clock.led.make_led = (function pi_clock$led$make_led(pin){
-return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"on","on",173873944),false,new cljs.core.Keyword(null,"pin","pin",-2111774834),pin], null);
+pi_clock.led.make_led = (function pi_clock$led$make_led(pin,on_QMARK_){
+return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"on","on",173873944),on_QMARK_,new cljs.core.Keyword(null,"pin","pin",-2111774834),pin], null);
 });
 
 //# sourceMappingURL=led.js.map
