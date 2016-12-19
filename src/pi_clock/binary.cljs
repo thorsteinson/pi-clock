@@ -7,3 +7,9 @@
         digits (rest (str/split bin-str #""))
         one? (partial = "1")]
     (map one? digits)))
+
+(defn pad-zeros [xs size]
+  (let [list-len (count xs)
+        pad-size (- size list-len)
+        zeros (take pad-size (repeat false))]
+    (concat zeros xs)))
