@@ -1,5 +1,4 @@
-(ns pi-clock.hardware
-  (:require [cljs.core.async :as async :refer :all]))
+(ns pi-clock.hardware)
 
 (def rpio (js/require "rpio"))
 
