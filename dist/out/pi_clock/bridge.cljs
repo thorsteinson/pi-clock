@@ -2,9 +2,9 @@
   (:require [pi-clock.binary :refer [binpad]]
             [pi-clock.led :as led]))
 
-(def HOURS-REGISTER [11 36 33 32 31 29])
-(def MINUTES-REGISTER [12 35 38 40 15 16])
-(def SECONDS-REGISTER [18 22 37 13 5 3])
+(def HOURS-REGISTER  (reverse [11 36 33 32 31 29]))
+(def MINUTES-REGISTER (reverse [12 35 38 40 15 16]))
+(def SECONDS-REGISTER (reverse [18 22 37 13 5 3]))
 (def ALL-PINS (concat HOURS-REGISTER MINUTES-REGISTER SECONDS-REGISTER))
 
 ;; Creates virtual representation of LEDs given a number

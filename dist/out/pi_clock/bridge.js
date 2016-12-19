@@ -3,9 +3,9 @@ goog.provide('pi_clock.bridge');
 goog.require('cljs.core');
 goog.require('pi_clock.binary');
 goog.require('pi_clock.led');
-pi_clock.bridge.HOURS_REGISTER = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(11),(36),(33),(32),(31),(29)], null);
-pi_clock.bridge.MINUTES_REGISTER = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(12),(35),(38),(40),(15),(16)], null);
-pi_clock.bridge.SECONDS_REGISTER = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(18),(22),(37),(13),(5),(3)], null);
+pi_clock.bridge.HOURS_REGISTER = cljs.core.reverse.call(null,new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(11),(36),(33),(32),(31),(29)], null));
+pi_clock.bridge.MINUTES_REGISTER = cljs.core.reverse.call(null,new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(12),(35),(38),(40),(15),(16)], null));
+pi_clock.bridge.SECONDS_REGISTER = cljs.core.reverse.call(null,new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(18),(22),(37),(13),(5),(3)], null));
 pi_clock.bridge.ALL_PINS = cljs.core.concat.call(null,pi_clock.bridge.HOURS_REGISTER,pi_clock.bridge.MINUTES_REGISTER,pi_clock.bridge.SECONDS_REGISTER);
 pi_clock.bridge.assign_leds = (function pi_clock$bridge$assign_leds(register,n){
 var size = cljs.core.count.call(null,register);
