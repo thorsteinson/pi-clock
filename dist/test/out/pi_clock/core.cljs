@@ -8,6 +8,7 @@
 
 (defn -main [& args]
   (println "The LEDs should change :)")
-  (map hardware/open-pin! HOURS-REGISTER))
+  (map hardware/open-pin! HOURS-REGISTER)
+  (map hardware/set-high! HOURS-REGISTER))
 
 (set! *main-cli-fn* -main)
