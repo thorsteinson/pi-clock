@@ -9,6 +9,6 @@
 (defn -main [& args]
   (map hardware/open-pin! HOURS-REGISTER)
   (map hardware/set-high! HOURS-REGISTER)
-  (js/setTimeout #(println "plz change" 1000)))
+  (js/setTimeout #(println "plz change") 1000))
 
 (set! *main-cli-fn* -main)

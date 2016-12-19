@@ -31,8 +31,8 @@ cljs.core.map.call(null,pi_clock.hardware.open_pin_BANG_,pi_clock.core.HOURS_REG
 cljs.core.map.call(null,pi_clock.hardware.set_high_BANG_,pi_clock.core.HOURS_REGISTER);
 
 return setTimeout((function (){
-return cljs.core.println.call(null,"plz change",(1000));
-}));
+return cljs.core.println.call(null,"plz change");
+}),(1000));
 });
 
 pi_clock.core._main.cljs$lang$maxFixedArity = (0);
