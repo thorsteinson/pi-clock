@@ -9,7 +9,7 @@
 
 (def HOURS-REGISTER [11 36 33 32 31 29])
 (def MINUTES-REGISTER [12 35 38 40 15 16])
-(def SECOUNDS-REGISTER [18 22 37 13 5 3])
+(def SECONDS-REGISTER [18 22 37 13 5 3])
 
 (defn update-led! [{pin :pin on? :on}]
   (if on? (hardware/set-high! pin)
