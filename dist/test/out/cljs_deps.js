@@ -1,7 +1,7 @@
 goog.addDependency("base.js", ['goog'], []);
 goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.math.Integer', 'goog.string.StringBuffer', 'goog.array', 'goog.math.Long']);
 goog.addDependency("../pi_clock/hardware.js", ['pi_clock.hardware'], ['cljs.core']);
-goog.addDependency("../D19E3D2.js", ['cljs.nodejs'], ['cljs.core']);
+goog.addDependency("../ABBAAE8.js", ['cljs.nodejs'], ['cljs.core']);
 goog.addDependency("../pi_clock/core.js", ['pi_clock.core'], ['pi_clock.hardware', 'cljs.core', 'cljs.nodejs']);
 goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
 goog.addDependency("../cljs/pprint.js", ['cljs.pprint'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer', 'clojure.string']);
