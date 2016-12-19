@@ -5,6 +5,7 @@ goog.require('cljs.nodejs');
 goog.require('pi_clock.hardware');
 cljs.nodejs.enable_util_print_BANG_.call(null);
 pi_clock.core.HOURS_REGISTER = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(11),(36),(33),(32),(29),(7)], null);
+pi_clock.core.rpio = require("rpio");
 pi_clock.core._main = (function pi_clock$core$_main(var_args){
 var args__8308__auto__ = [];
 var len__8301__auto___8379 = arguments.length;
@@ -29,6 +30,8 @@ pi_clock.core._main.cljs$core$IFn$_invoke$arity$variadic = (function (args){
 cljs.core.map.call(null,pi_clock.hardware.open_pin_BANG_,pi_clock.core.HOURS_REGISTER);
 
 cljs.core.map.call(null,pi_clock.hardware.set_high_BANG_,pi_clock.core.HOURS_REGISTER);
+
+pi_clock.core.rpio.open((11),pi_clock.core.rpio.OUTPUT,pi_clock.core.rpio.HIGH);
 
 return setTimeout((function (){
 return cljs.core.println.call(null,"plz change");
