@@ -7,7 +7,6 @@
 (def HOURS-REGISTER [11 36 33 32 29 7])
 (def rpio (js/require "rpio"))
 (defn -main [& args]
-  (map hardware/open-pin! HOURS-REGISTER)
-  (js/setInterval (fn [] (map hardware/set-high! HOURS-REGISTER)) 
-                  1000))  
+  (doseq [p HOURS-REGISTER]
+    (open-pin! p)))
 (set! *main-cli-fn* -main)

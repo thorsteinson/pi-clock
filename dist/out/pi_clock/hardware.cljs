@@ -7,7 +7,7 @@
 (def OUTPUT (.-OUTPUT rpio))
 
 (defn open-pin! [p]
-  (.open rpio p OUTPUT LOW))
+  (.open rpio p OUTPUT HIGh))
 
 (defn set-low! [p]
   (.write rpio p LOW))
