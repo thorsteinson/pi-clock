@@ -1,9 +1,11 @@
 (ns pi-clock.core-test
-  (:require [cljs.nodejs :as node]))
+  (:require [cljs.nodejs :as node]
+            [cljs.test :refer-macros [run-tests]]
+            [pi-clock.binary-test]))
 
 (node/enable-util-print!)
 
 (defn -main [& args]
-  (println "This is where we will do testing :)"))
+  (run-tests 'pi-clock.binary-test))
 
 (set! *main-cli-fn* -main)

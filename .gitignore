@@ -1,9 +1,14 @@
+# Node / NPM
 logs
 *.log
 npm-debug.log*
-
 node_modules
-target
-pom.xml
 
+# Leiningen / Clojure
+.lein-repl-history
+.nrepl-port
+pom.xml
+target
+
+# Mine
 dist
